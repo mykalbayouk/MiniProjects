@@ -6,6 +6,7 @@ void printBoard(std::string board);
 int rollDice();
 int checkInput(std::string input, int diceSum, std::string board);
 bool isLoser(int diff, int diceSum, std::string board);
+bool isWinner(std::string board);
 
 /**
  * Main function used to start the game up.
@@ -26,7 +27,7 @@ int main() {
  * @param board pointing to the memory address of the board created in {@code main}
 */
 void play(std::string *board) {
-    if (*board == "       ") {
+    if (isWinner(*board)) {
         std::cout << "You won!" << std::endl;
         return;
     } // if the board is empty, then the player has won
@@ -67,6 +68,26 @@ void play(std::string *board) {
         play(&boar);
     } // if the input is valid, then knock down the numbers
 } // play 
+
+/**
+ * Checks to see if the board is empty.
+ * 
+ * @param board the current board
+ * @return true if the board is empty, false if not
+*/ 
+bool isWinner(std::string board) {
+    int sum = 0;
+    for(int i = 1; i < 10; i++) {
+        if (board.find(std::to_string(i)) == std::string::npos) {
+            sum++;
+        } // if the board contains the number, then add 1 to the sum
+    } // for loop to check if the board is empty
+    if (sum == 9) {
+        return true;
+    } else {
+        return false;
+    } // if the board is empty, then the player has won
+} // isWinner
 
 /**
  * Checks to see if the current dicesum and the current board have possible combinations.
@@ -127,6 +148,5 @@ int rollDice() {
     int dice = rand() % 6 + 1;
     return dice;
 } // rollDice
-
 
 
