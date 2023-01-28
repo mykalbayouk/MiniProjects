@@ -119,9 +119,9 @@ void generateNoise(std::vector<char> &noise, int length, int noiseDensity) {
     for (int i = 0; i < length; i++) {
         num = rand() % 100 + 1;
         if (num > noiseDensity) {
-            noise.push_back('0');
-        } else {
             noise.push_back(' ');
+        } else {
+            noise.push_back('0');
         } // if
     } // for loop to generate noise vector
 } // generateNoise
