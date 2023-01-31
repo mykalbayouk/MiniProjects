@@ -45,57 +45,23 @@ int main() {
 void filterNoise(std::vector<char> &noise, int length) {
     std::vector<char> temp = noise; // temp vector to store new values
     int sum = 0;
+    int mini_sum = 0;
     for (int i = 0; i < length * length; i++) {
-        for (int x = 0; x < 9; x++) {
+        mini_sum = 0;
+        for (int x = (i - length - 1); x <= (i + length + 1); x++) {
             try {
-                switch (x) {
-                case 0:
-                    if (noise.at(i - length - 1) == '0') {
-                        sum++;
-                    } // if 
-                    break;
-                case 1:
-                    if (noise.at(i - length) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                case 2:
-                    if (noise.at(i - length + 1) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                case 3:
-                    if (noise.at(i - 1) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    if (noise.at(i + 1) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                case 6:
-                    if (noise.at(i + length - 1) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                case 7:
-                    if (noise.at(i + length) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                case 8:
-                    if (noise.at(i + length + 1) == '0') {
-                        sum++;
-                    } // if
-                    break;
-                } // switch
+                if (noise.at(x) == '0' && mini_sum < 3 && x != i) {
+                    sum++;
+                } else if (x == (i - 2)) {
+                    mini_sum = -1;
+                } else if (x == (i + length - 2)) {               
+                    mini_sum = -1;
+                } // if 
+                mini_sum++;
             } catch (std::out_of_range) {
                 continue;
             } // try catch
-        }
+        } // for loop to run through noise vector        
         if (sum > 4){
             temp.at(i) =  '0';
         } else {
